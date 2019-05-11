@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+{% block title %}
+    首页
+{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            background: #E6E6E6;
+        }
+    </style>
+{% endblock %}
+{#在{% block main %}的这个标签外面加一层<div class="main"></div>然后修改.main的css样式即可#}
+<div class="main">
+
+    {% block main %}
+        <ul class="question-list-group">
+            {% for article in articles %}
+                <li>
+                    <div class="question-group">
+                        <p class="question-title">
+                            <a href="{% url 'article:article_detail' article.id %}">{{ article.title }}</a>
+                        </p>
+                        <p class="question-content">{{ article.content }}</p>
+                        <div class="question-info">
+                            <span class="question-author">{{ article.author.username }} </span>
+                            <span class="question-time">{{ article.create_time }}</span>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <style>
+            ul {
+                list-style: none;
+                padding-left: 0;
+            }
+
+            ul li {
+                border-bottom: 1px solid #eee;
+                overflow: hidden;
+                /*padding: 15px 0;*/
+            }
+
+            .main {
+                background: #fff;
+                width: 750px;
+                margin: 0 auto;
+                overflow: hidden;
+                padding: 10px;
+            }
+
+            .question-group {
+                float: left;
+                width: 660px;
+                margin-left: 10px;
+            }
+
+            .question-title a {
+                color: #259;
+                font-weight: 900;
+            }
+
+            .question-info {
+                text-align: right;
+            }
+
+            .question-author {
+                margin-right: 20px;
+            }
+        </style>
+    {% endblock %}
+</div>
